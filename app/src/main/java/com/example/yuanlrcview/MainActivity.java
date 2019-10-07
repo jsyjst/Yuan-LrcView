@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
                     "[al:]\n" +
                     "[by:]\n" +
                     "[offset:0]\n" +
-                    "[00:00.10]光年之外 (《太空旅客（Passengers）》电影中国区主题曲) - G.E.M. 邓紫棋 (Gem Tang) \n" +
+                    "[00:00.10]喜欢你 - G.E.M. 邓紫棋 (Gem Tang)  \n" +
                     "[00:00.20]词：黄家驹\n" +
                     "[00:00.30]曲：黄家驹\n" +
                     "[00:00.40]编曲：Lupo Groinig\n" +

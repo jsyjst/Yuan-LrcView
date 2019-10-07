@@ -51,7 +51,7 @@ public class LrcUtil {
             if (i == 5) {
                 int lineIndex = lrcText.indexOf("-");
                 int first = lrcText.indexOf("(");
-                if(first<lineIndex){
+                if(first<lineIndex&&first!=-1){
                     lrcText = lrcText.substring(0,first)+lrcText.substring(lineIndex);
                 }
                 LrcBean lrcBean = new LrcBean();
