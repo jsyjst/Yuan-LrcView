@@ -1,6 +1,5 @@
 package com.example.library.view;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -41,7 +40,7 @@ public class LrcView extends View {
 
     //将歌词集合传给到这个自定义View中
     public LrcView setLrc(String lrc) {
-        lrcBeanList = LrcUtil.praseStr2List(lrc);
+        lrcBeanList = LrcUtil.parseStr2List(lrc);
         return this;
     }
 

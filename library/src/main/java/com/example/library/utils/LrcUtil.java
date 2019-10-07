@@ -29,7 +29,7 @@ public class LrcUtil {
      * [00:14.29]我总算学会了如何去爱
      * @return 歌词集合
      */
-    public static List<LrcBean> praseStr2List(String lrcStr){
+    public static List<LrcBean> parseStr2List(String lrcStr){
         List<LrcBean> res = new ArrayList<>();
         //根据转行字符对字符串进行分割
         String[] subLrc = lrcStr.split("\n");
@@ -46,7 +46,20 @@ public class LrcUtil {
             String lrcText = lineLrc.substring(lineLrc.indexOf("]")+1);
             //有可能是某个时间段是没有歌词，则跳过下面
             if(lrcText.equals("")) continue;
-
+            //在第一句歌词中有可能是很长的，我们只截取一部分，即歌曲加演唱者
+            //比如 光年之外 (《太空旅客（Passengers）》电影中国区主题曲) - G.E.M. 邓紫棋 (Gem Tang)
+            if (i == 5) {
+                int lineIndex = lrcText.indexOf("-");
+                int first = lrcText.indexOf("(");
+                if(first<lineIndex){
+                    lrcText = lrcText.substring(0,first)+lrcText.substring(lineIndex);
+                }
+                LrcBean lrcBean = new LrcBean();
+                lrcBean.setStart(startTime);
+                lrcBean.setLrc(lrcText);
+                res.add(lrcBean);
+                continue;
+            }
             //添加到歌词集合中
             LrcBean lrcBean = new LrcBean();
             lrcBean.setStart(startTime);
