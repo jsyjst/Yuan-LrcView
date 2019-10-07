@@ -121,7 +121,8 @@ public class LrcView extends View {
     //得到当前歌词的位置
     private void getCurrentPosition() {
         int curTime = player.getCurrentPosition();
-        if (curTime < lrcBeanList.get(0).getStart()) {
+        //如果当前的时间大于10分钟，证明歌曲未播放，则当前位置应该为0
+        if (curTime < lrcBeanList.get(0).getStart()||curTime>10*60*1000) {
             currentPosition = 0;
             return;
         } else if (curTime > lrcBeanList.get(lrcBeanList.size() - 1).getStart()) {
