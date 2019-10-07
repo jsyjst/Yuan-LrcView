@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LrcView">
+        <attr name="highLineTextColor" format="color|reference|integer"/>
+        <attr name="lrcTextColor" format="color|reference|integer"/>
+        <attr name="lineSpacing" format="dimension"/>
+        <attr name="textSize" format="dimension"/>
+    </declare-styleable>
+</resources>
