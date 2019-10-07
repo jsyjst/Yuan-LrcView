@@ -20,7 +20,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private LrcView lrcView;
-    private List<LrcBean> lrcBeanList;
     private MediaPlayer player;
     private String lrc =
                     "[ti:喜欢你]\n" +
@@ -106,8 +105,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initLrc(){
-        lrcBeanList = LrcUtil.praseStr2List(lrc);
-        lrcView.setLrcBeanList(lrcBeanList).setPlayer(player).draw();
+        lrcView.setLrc(lrc).setPlayer(player).draw();
     }
 
     //申请权限

@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.example.library.R;
 import com.example.library.entity.LrcBean;
+import com.example.library.utils.LrcUtil;
 
 import java.util.List;
 
@@ -39,8 +40,8 @@ public class LrcView extends View {
 
 
     //将歌词集合传给到这个自定义View中
-    public LrcView setLrcBeanList(List<LrcBean> lrcBeanList) {
-        this.lrcBeanList = lrcBeanList;
+    public LrcView setLrc(String lrc) {
+        lrcBeanList = LrcUtil.praseStr2List(lrc);
         return this;
     }
 
