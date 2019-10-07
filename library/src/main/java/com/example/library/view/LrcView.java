@@ -1,5 +1,6 @@
 package com.example.library.view;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -29,7 +30,7 @@ public class LrcView extends View {
     private Paint hPaint;//当前歌词画笔
     private int lrcTextColor;//歌词颜色
     private int highLineTextColor;//当前歌词颜色
-    private int width,height;//屏幕宽高
+    private int width, height;//屏幕宽高
     private int lineSpacing;//行间距
     private int textSize;//字体大小
     private int currentPosition;//当前歌词的位置
@@ -38,20 +39,20 @@ public class LrcView extends View {
 
 
     //将歌词集合传给到这个自定义View中
-    public LrcView setLrcBeanList(List<LrcBean> lrcBeanList){
+    public LrcView setLrcBeanList(List<LrcBean> lrcBeanList) {
         this.lrcBeanList = lrcBeanList;
         return this;
     }
 
     //传递mediaPlayer给自定义View中
-    public LrcView setPlayer(MediaPlayer player){
+    public LrcView setPlayer(MediaPlayer player) {
         this.player = player;
         return this;
     }
 
 
     //当setLrcBeanList被调用时需要重新绘制
-    public LrcView draw(){
+    public LrcView draw() {
         currentPosition = 0;
         lastPosition = 0;
         invalidate();
@@ -59,31 +60,31 @@ public class LrcView extends View {
     }
 
     public LrcView(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public LrcView(Context context, @Nullable AttributeSet attrs) {
-        this(context,attrs,0);
+        this(context, attrs, 0);
     }
 
     public LrcView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.LrcView);
-        lrcTextColor = ta.getColor(R.styleable.LrcView_lrcTextColor,Color.GRAY);
-        highLineTextColor = ta.getColor(R.styleable.LrcView_highLineTextColor,Color.BLUE);
+        lrcTextColor = ta.getColor(R.styleable.LrcView_lrcTextColor, Color.GRAY);
+        highLineTextColor = ta.getColor(R.styleable.LrcView_highLineTextColor, Color.BLUE);
         float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         float scale = context.getResources().getDisplayMetrics().density;
         //默认字体大小为16sp
-        textSize = ta.getDimensionPixelSize(R.styleable.LrcView_textSize,(int)(16*fontScale));
+        textSize = ta.getDimensionPixelSize(R.styleable.LrcView_textSize, (int) (16 * fontScale));
         //默认行间距为120dp
-        lineSpacing = ta.getDimensionPixelSize(R.styleable.LrcView_lineSpacing,(int)(20*scale));
+        lineSpacing = ta.getDimensionPixelSize(R.styleable.LrcView_lineSpacing, (int) (20 * scale));
         //回收
         ta.recycle();
         //进行初始化
         init();
     }
 
-    private void init(){
+    private void init() {
         //初始化歌词画笔
         dPaint = new Paint();
         dPaint.setStyle(Paint.Style.FILL);//填满
@@ -118,36 +119,39 @@ public class LrcView extends View {
     }
 
     //得到当前歌词的位置
-    private void getCurrentPosition(){
+    private void getCurrentPosition() {
         int curTime = player.getCurrentPosition();
-        if(curTime<lrcBeanList.get(0).getStart()){
+        if (curTime < lrcBeanList.get(0).getStart()) {
             currentPosition = 0;
             return;
-        }else if(curTime>lrcBeanList.get(lrcBeanList.size()-1).getStart()){
-            currentPosition = lrcBeanList.size()-1;
+        } else if (curTime > lrcBeanList.get(lrcBeanList.size() - 1).getStart()) {
+            currentPosition = lrcBeanList.size() - 1;
             return;
         }
         for (int i = 0; i < lrcBeanList.size(); i++) {
-            if(curTime>=lrcBeanList.get(i).getStart()&&curTime<=lrcBeanList.get(i).getEnd()){
+            if (curTime >= lrcBeanList.get(i).getStart() && curTime <= lrcBeanList.get(i).getEnd()) {
                 currentPosition = i;
             }
         }
     }
+
     //画歌词，第一句从正中央开始，以后的歌词递增行间距开始画
-    private void drawLrc(Canvas canvas){
+    private void drawLrc(Canvas canvas) {
         for (int i = 0; i < lrcBeanList.size(); i++) {
-            if(currentPosition == i){//如果是当前的歌词就用高亮的画笔画
-                canvas.drawText(lrcBeanList.get(i).getLrc(),width/2,height/2+i*lineSpacing,hPaint);
-            }else {
-                canvas.drawText(lrcBeanList.get(i).getLrc(),width/2,height/2+i*lineSpacing,dPaint);
+            if (currentPosition == i) {//如果是当前的歌词就用高亮的画笔画
+                canvas.drawText(lrcBeanList.get(i).getLrc(), width / 2, height / 2 + i * lineSpacing, hPaint);
+            } else {
+                canvas.drawText(lrcBeanList.get(i).getLrc(), width / 2, height / 2 + i * lineSpacing, dPaint);
             }
         }
     }
+
     //歌词滑动
-    private void scrollLrc(){
+    private void scrollLrc() {
         //下一句歌词的开始时间
         long startTime = lrcBeanList.get(currentPosition).getStart();
         long currentTime = player.getCurrentPosition();
+
         //判断是否换行
         float v = (currentTime - startTime) > 500 ? currentPosition * lineSpacing : lastPosition * lineSpacing + (currentPosition - lastPosition) * lineSpacing * ((currentTime - startTime) / 500f);
         setScrollY((int)v);
