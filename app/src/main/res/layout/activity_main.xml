@@ -10,8 +10,8 @@
         android:id="@+id/lrcView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:lineSpacing="30dp"
-        app:textSize="16sp"
+        app:lineSpacing="40dp"
+        app:textSize="18sp"
         app:lrcTextColor="@color/colorPrimary"
         app:highLineTextColor="@color/highTextColor"
         />
