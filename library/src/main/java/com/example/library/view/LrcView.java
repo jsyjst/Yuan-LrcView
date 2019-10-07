@@ -76,8 +76,8 @@ public class LrcView extends View {
         float scale = context.getResources().getDisplayMetrics().density;
         //默认字体大小为16sp
         textSize = ta.getDimensionPixelSize(R.styleable.LrcView_textSize, (int) (16 * fontScale));
-        //默认行间距为120dp
-        lineSpacing = ta.getDimensionPixelSize(R.styleable.LrcView_lineSpacing, (int) (20 * scale));
+        //默认行间距为30dp
+        lineSpacing = ta.getDimensionPixelSize(R.styleable.LrcView_lineSpacing, (int) (30 * scale));
         //回收
         ta.recycle();
         //进行初始化
