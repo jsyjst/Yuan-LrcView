@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.Scroller;
 
 import com.example.library.R;
 import com.example.library.entity.LrcBean;
@@ -37,6 +38,7 @@ public class LrcView extends View {
     private int currentPosition;//当前歌词的位置
     private MediaPlayer player;//当前的播放器
     private int lastPosition = 0;//上一句歌词的位置
+    private Scroller scroller;//
 
 
     //将歌词集合传给到这个自定义View中
@@ -70,6 +72,7 @@ public class LrcView extends View {
 
     public LrcView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        scroller = new Scroller(context);
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.LrcView);
         lrcTextColor = ta.getColor(R.styleable.LrcView_lrcTextColor, Color.GRAY);
         highLineTextColor = ta.getColor(R.styleable.LrcView_highLineTextColor, Color.BLUE);
@@ -156,7 +159,7 @@ public class LrcView extends View {
         long startTime = lrcBeanList.get(currentPosition).getStart();
         long currentTime = player.getCurrentPosition();
 
-        //判断是否换行,在0.5内完成滑动，即实现弹性滑动
+       // 判断是否换行,在0.5内完成滑动，即实现弹性滑动
         float y = (currentTime - startTime) > 500
                 ? currentPosition * lineSpacing
                 : lastPosition * lineSpacing + (currentPosition - lastPosition) * lineSpacing * ((currentTime - startTime) / 500f);
@@ -164,5 +167,24 @@ public class LrcView extends View {
         if (getScrollY() == currentPosition * lineSpacing) {
             lastPosition = currentPosition;
         }
+
+//        if(currentTime - startTime<=400){
+//            smoothScrollTo(currentPosition*lineSpacing);
+//        }
     }
+
+//    private void smoothScrollTo(int y){
+//        int scrollY = getScrollY();
+//        int delta = y-scrollY;
+//        scroller.startScroll(0,scrollY,0,delta,400);
+//        invalidate();
+//    }
+//
+//    @Override
+//    public void computeScroll() {
+//        if(scroller.computeScrollOffset()){
+//            scrollTo(scroller.getCurrX(),scroller.getCurrY());
+//            postInvalidateDelayed(100);//延迟0.1s刷新
+//        }
+//    }
 }
