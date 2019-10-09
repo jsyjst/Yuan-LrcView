@@ -18,15 +18,15 @@ public class LrcUtil {
     /**
      * 解析歌词，将字符串歌词封装成LrcBean的集合
      * @param lrcStr 字符串的歌词，歌词有固定的格式，一般为
-     * [ti:后来]
-     * [ar:刘若英]
-     * [al:我等你]
-     * [by:0]
+     * [ti:喜欢你]
+     * [ar:.]
+     * [al:]
+     * [by:]
      * [offset:0]
-     * [00:00.90]刘若英 - 后来
-     * [00:02.09]
-     * [00:12.29]后来
-     * [00:14.29]我总算学会了如何去爱
+     * [00:00.10]喜欢你 - G.E.M. 邓紫棋 (Gem Tang)
+     * [00:00.20]词：黄家驹
+     * [00:00.30]曲：黄家驹
+     * [00:00.40]编曲：Lupo Groinig
      * @return 歌词集合
      */
     public static List<LrcBean> parseStr2List(String lrcStr){

@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.example.library.R;
@@ -106,16 +107,18 @@ public class LrcView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        //得到测量后的宽高
+        getMeasuredWidthAndHeight();//得到测量后的宽高
+        getCurrentPosition();//得到当前歌词的位置
+        drawLrc(canvas);//画歌词
+        scrollLrc();//歌词滑动
+        postInvalidateDelayed(100);//延迟0.1s刷新
+    }
+
+    private void getMeasuredWidthAndHeight(){
         if (width == 0 || height == 0) {
             width = getMeasuredWidth();
             height = getMeasuredHeight();
         }
-        getCurrentPosition();
-        drawLrc(canvas);
-        scrollLrc();
-        //延迟0.1s刷新
-        postInvalidateDelayed(100);
     }
 
     //得到当前歌词的位置
@@ -153,9 +156,11 @@ public class LrcView extends View {
         long startTime = lrcBeanList.get(currentPosition).getStart();
         long currentTime = player.getCurrentPosition();
 
-        //判断是否换行
-        float v = (currentTime - startTime) > 500 ? currentPosition * lineSpacing : lastPosition * lineSpacing + (currentPosition - lastPosition) * lineSpacing * ((currentTime - startTime) / 500f);
-        setScrollY((int)v);
+        //判断是否换行,在0.5内完成滑动，即实现弹性滑动
+        float y = (currentTime - startTime) > 500
+                ? currentPosition * lineSpacing
+                : lastPosition * lineSpacing + (currentPosition - lastPosition) * lineSpacing * ((currentTime - startTime) / 500f);
+        scrollTo(0,(int)y);
         if (getScrollY() == currentPosition * lineSpacing) {
             lastPosition = currentPosition;
         }
