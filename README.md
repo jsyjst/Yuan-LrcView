@@ -7,7 +7,7 @@
 简约风的歌词控件，效果图如下：
 
 <div align="left">
-<img src="https://github.com/jsyjst/Yuan-LrcView/raw/master/screenshots/gif3.gif" height="500" width="350" >
+<img src="https://github.com/jsyjst/Yuan-LrcView/raw/master/screenshots/gif3.gif" height="650" width="350" >
 </div>
 
 # 如何添加
