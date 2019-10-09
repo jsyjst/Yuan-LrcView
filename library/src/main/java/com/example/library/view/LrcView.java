@@ -38,7 +38,7 @@ public class LrcView extends View {
     private int currentPosition;//当前歌词的位置
     private MediaPlayer player;//当前的播放器
     private int lastPosition = 0;//上一句歌词的位置
-    private Scroller scroller;//
+//    private Scroller scroller;
 
 
     //将歌词集合传给到这个自定义View中
@@ -72,7 +72,7 @@ public class LrcView extends View {
 
     public LrcView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        scroller = new Scroller(context);
+//        scroller = new Scroller(context);
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.LrcView);
         lrcTextColor = ta.getColor(R.styleable.LrcView_lrcTextColor, Color.GRAY);
         highLineTextColor = ta.getColor(R.styleable.LrcView_highLineTextColor, Color.BLUE);
@@ -167,7 +167,7 @@ public class LrcView extends View {
         if (getScrollY() == currentPosition * lineSpacing) {
             lastPosition = currentPosition;
         }
-
+        //Scroller实现弹性滑动
 //        if(currentTime - startTime<=400){
 //            smoothScrollTo(currentPosition*lineSpacing);
 //        }
