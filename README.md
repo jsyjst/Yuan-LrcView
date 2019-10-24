@@ -4,7 +4,8 @@
 
 [![](https://img.shields.io/badge/作者-jsyjst-blue.svg)](https://blog.csdn.net/qq_41979349)
 
-简约风的歌词控件，效果图如下：
+简约风的歌词控件，如果对具体实现感兴趣的可以看这篇文章[Android自定义View-简约风歌词控件](https://juejin.im/post/5d9d43986fb9a04e01662963)
+其效果图如下：
 
 <div align="left">
 <img src="https://github.com/jsyjst/Yuan-LrcView/raw/master/screenshots/gif3.gif" height="650" width="350" >
